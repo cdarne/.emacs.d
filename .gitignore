@@ -1,0 +1,11 @@
+session.*
+auto-save-list
+image-dired
+sessions
+tramp
+\#*\#
+\~*\~
+*\~
+*.dat
+.emacs.desktop
+*.elc

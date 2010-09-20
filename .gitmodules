@@ -1,0 +1,6 @@
+[submodule "site-lisp/auto-complete"]
+	path = site-lisp/auto-complete
+	url = http://github.com/m2ym/auto-complete.git
+[submodule "site-lisp/nxhtml"]
+	path = site-lisp/nxhtml
+	url = git://github.com/emacsmirror/nxhtml.git
