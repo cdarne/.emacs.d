@@ -40,6 +40,7 @@
 (load-library "conf-ide-skel")
 (load-library "conf-keybindings")
 (load-library "conf-flymake")
+(load-library "conf-yaml")
 
 (defun recompile-init ()
   "Byte-compile all config files"

@@ -4,3 +4,9 @@
 [submodule "site-lisp/nxhtml"]
 	path = site-lisp/nxhtml
 	url = git://github.com/emacsmirror/nxhtml.git
+[submodule "site/yaml-mode"]
+	path = site/yaml-mode
+	url = git://github.com/yoshiki/yaml-mode.git
+[submodule "site-lisp/yaml-mode"]
+	path = site-lisp/yaml-mode
+	url = git://github.com/yoshiki/yaml-mode.git

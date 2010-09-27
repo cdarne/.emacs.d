@@ -12,8 +12,6 @@
 ;; (add-to-list 'auto-mode-alist '("\\.js$" . javascript-mode))
 ;; (autoload 'javascript-mode "js-mode" nil t)
 
-
-
 ;; (eval-after-load 'js-mode
 ;;   '(progn (define-key js-mode-map "{" 'paredit-open-curly)
 ;;           (define-key js-mode-map "}" 'paredit-close-curly-and-newline)
