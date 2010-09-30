@@ -41,6 +41,7 @@
 (load-library "conf-keybindings")
 (load-library "conf-flymake")
 (load-library "conf-yaml")
+(load-library "conf-cucumber")
 
 (defun recompile-init ()
   "Byte-compile all config files"
