@@ -1,7 +1,0 @@
--- My configs/bootstrap files for emacs --
-
-v1: initialisation
-
-v2: nettoyage pour emacs 23.2
-
-v3: mise en place des plugins nXhtml et auto-complete comme sous-modules

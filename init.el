@@ -1,68 +1,67 @@
-;; Turn off mouse interface early in startup to avoid momentary display
-;; (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
-(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
-(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
-
-;; Add custom load path
-(add-to-list 'load-path "~/.emacs.d")
-;; Add all top-level subdirectories of .emacs.d to the load path
-(progn (cd "~/.emacs.d")
-       (normal-top-level-add-subdirs-to-load-path))
-
-;; Add the conf files directory
-(add-to-list 'load-path "~/.emacs.d/etc")
-
-; Third party libraries in ~/.emacs.d/site-lisp
-(add-to-list 'load-path "~/.emacs.d/site-lisp")
-(progn (cd "~/.emacs.d/site-lisp")
-       (normal-top-level-add-subdirs-to-load-path))
-
-;; Set the default working dir
-(cd "~/")
-
-;; Direct lib load
-(require 'haml-mode)
-(require 'sass-mode)
-(require 'ediff-trees)
-
-;; Load my confs
-(load-library "conf-general")
-(load-library "conf-cua-mode")
-(load-library "conf-auto-complete")
-(load-library "conf-autopair")
-(load-library "conf-ido")
-(load-library "conf-lisp")
-(load-library "conf-nxhtml")
-(load-library "conf-cc")
-(load-library "conf-js")
-(load-library "conf-php")
-(load-library "conf-csv-mode")
-(load-library "conf-ide-skel")
-(load-library "conf-keybindings")
-(load-library "conf-flymake")
-(load-library "conf-yaml")
-(load-library "conf-cucumber")
-
-(defun recompile-init ()
-  "Byte-compile all config files"
-  (interactive)
-  (byte-recompile-directory "~/.emacs.d/etc" 0)
-  (byte-recompile-directory "~/.emacs.d/site-lisp" 0))
-
 (custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ansi-color-faces-vector
+   [default default default italic underline success warning error])
+ '(custom-enabled-themes (quote (wombat)))
+ '(display-battery-mode t)
+ '(display-time-mode t)
  '(inhibit-startup-screen t)
- '(mumamo-margin-info-global-mode nil))
+ '(scroll-bar-mode nil)
+ '(tool-bar-mode nil))
+
 (custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- '(mumamo-background-chunk-major ((((class color) (min-colors 88) (background dark)) (:background "grey14"))))
- '(mumamo-background-chunk-submode1 ((((class color) (min-colors 88) (background dark)) (:background "grey16"))))
- '(mumamo-background-chunk-submode2 ((((class color) (min-colors 88) (background dark)) (:background "grey18"))))
- '(mumamo-background-chunk-submode3 ((((class color) (min-colors 88) (background dark)) (:background "grey20"))))
- '(mumamo-background-chunk-submode4 ((((class color) (min-colors 88) (background dark)) (:background "grey22")))))
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
+
+(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+(defconst *is-a-mac* (eq system-type 'darwin))
+
+(require 'init-elpa)
+(require 'init-osx)
+
+;; Tweak to make display more responsive
+(setq redisplay-dont-pause t)
+
+
+;; Highlight matching parenthesis
+(show-paren-mode 1)
+
+
+;; Slime config
+
+(setq slime-lisp-implementations
+      '((cslip ("/usr/local/bin/clisp"))
+        (sbcl ("/usr/local/bin/sbcl") :coding-system utf-8-unix)))
+
+(setq slime-contribs '(slime-fancy))
+
+
+;; Auto save on focus loss
+(defun save-all ()
+    (interactive)
+    (save-some-buffers t))
+
+(add-hook 'auto-save-hook 'save-all)
+(add-hook 'focus-out-hook 'save-all)
+
+
+;; Backup files in /temp please
+(setq backup-directory-alist
+      `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
+
+
+
+(smex-initialize)
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+;; This is your old M-x.
+(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
